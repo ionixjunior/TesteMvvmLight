@@ -1,6 +1,11 @@
-﻿using GalaSoft.MvvmLight;
+﻿using Core.Helpers;
+using Core.Models;
+using Core.Services;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Core.ViewModels
 {
@@ -8,18 +13,54 @@ namespace Core.ViewModels
 	{
 		private INavigationService _navigation;
 		private IDialogService _dialog;
+        private HttpResult<JsonPlaceModel> _result;
 
-		public HomeViewModel(INavigationService navigation, IDialogService dialog)
+        public HomeViewModel(INavigationService navigation, IDialogService dialog)
 		{
 			_navigation = navigation;
 			_dialog = dialog;
 
-            //var httpService = new HttpService();
-            //httpService.URI = "https://jsonplaceholder.typicode.com";
-            //var list = await httpService.Get<JsonPlaceModel>("/posts", new HttpHeader("Accept", "application/json"));
+            _result = new HttpResult<JsonPlaceModel>(System.Net.HttpStatusCode.NoContent);
+            IsBusy = true;
+            Task.Run(async () =>
+            {
+                var httpService = new HttpService();
+                httpService.URI = "https://jsonplaceholder.typicode.com";
+                _result = await httpService.Get<JsonPlaceModel>("/posts", new HttpHeader("Accept", "application/json"));
+            }).Wait();
+            IsBusy = false;
+            LoadList = _result.Result;
         }
-        
-		private string _nome;
+
+        private bool _isBusy;
+        public bool IsBusy
+        {
+            get
+            {
+                return _isBusy;
+            }
+            set
+            {
+                if (Set(() => IsBusy, ref _isBusy, value))
+                    RaisePropertyChanged();
+            }
+        }
+
+        IList<JsonPlaceModel> _listItens;
+        public IList<JsonPlaceModel> LoadList
+        {
+            get
+            {
+                return _result.Result;
+            }
+            set
+            {
+                if (Set(() => LoadList, ref _listItens, value))
+                    RaisePropertyChanged();
+            }
+        }
+
+        private string _nome;
 		public string Nome
 		{
 			get { return _nome; }
