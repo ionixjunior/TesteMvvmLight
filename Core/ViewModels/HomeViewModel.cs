@@ -13,8 +13,12 @@ namespace Core.ViewModels
 		{
 			_navigation = navigation;
 			_dialog = dialog;
-		}
 
+            //var httpService = new HttpService();
+            //httpService.URI = "https://jsonplaceholder.typicode.com";
+            //var list = await httpService.Get<JsonPlaceModel>("/posts", new HttpHeader("Accept", "application/json"));
+        }
+        
 		private string _nome;
 		public string Nome
 		{
