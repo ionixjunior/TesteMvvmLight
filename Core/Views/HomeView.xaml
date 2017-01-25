@@ -22,7 +22,7 @@
 			
 			<ListView
 				Grid.Row="0"
-				IsVisible="{Binding IsBusy, Converters={converters:BooleanInverterConverter}}"
+				IsVisible="{Binding IsBusy, Converter={converters:BooleanInverterConverter}}"
 				ItemsSource="{Binding LoadList}"
 				CachingStrategy="RecycleElement"
 			>
