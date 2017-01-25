@@ -2,28 +2,39 @@
 <ContentPage 
 	xmlns="http://xamarin.com/schemas/2014/forms" 
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	xmlns:converters="clr-namespace:Core.Converters"
 	x:Class="Core.Views.HomeView"
 	Title="Home"
 >
 	<ContentPage.Content>
-		<StackLayout>
-			<Entry
-				Text="{Binding Nome}"
-			></Entry>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"></RowDefinition>
+			</Grid.RowDefinitions>
 
-			<Label
-				Text="{Binding Nome}"
-			></Label>
-
-			<Button
-				Text="Ir página 2"
-				Command="{Binding NavigatePage2Command}"
-			></Button>
-
-			<Button
-				Text="Mostrar mensagem"
-				Command="{Binding ShowMessageCommand}"
-			></Button>
-		</StackLayout>
+			<ActivityIndicator
+				Grid.Row="0"
+				IsVisible="{Binding IsBusy}"
+				IsEnabled="{Binding IsBusy}"
+				HorizontalOptions="Center"
+				VerticalOptions="Center"
+			></ActivityIndicator>
+			
+			<ListView
+				Grid.Row="0"
+				IsVisible="{Binding IsBusy, Converters={converters:BooleanInverterConverter}}"
+				ItemsSource="{Binding LoadList}"
+				CachingStrategy="RecycleElement"
+			>
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<TextCell
+							Text="{Binding Title}"
+							Detail="{Binding Body}"
+						></TextCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+		</Grid>
 	</ContentPage.Content>
 </ContentPage>
