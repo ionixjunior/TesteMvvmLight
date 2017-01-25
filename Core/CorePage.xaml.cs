@@ -7,6 +7,7 @@ namespace Core
 		public CorePage()
 		{
 			InitializeComponent();
+			BindingContext = App.Locator.Main;
 		}
 	}
 }

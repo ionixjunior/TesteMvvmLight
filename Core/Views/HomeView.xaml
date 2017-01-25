@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage 
 	xmlns="http://xamarin.com/schemas/2014/forms" 
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-	xmlns:local="clr-namespace:Core" 
-	x:Class="Core.CorePage"
+	x:Class="Core.Views.HomeView"
+	Title="Home"
 >
 	<ContentPage.Content>
 		<StackLayout>
@@ -14,6 +14,16 @@
 			<Label
 				Text="{Binding Nome}"
 			></Label>
+
+			<Button
+				Text="Ir página 2"
+				Command="{Binding NavigatePage2Command}"
+			></Button>
+
+			<Button
+				Text="Mostrar mensagem"
+				Command="{Binding ShowMessageCommand}"
+			></Button>
 		</StackLayout>
 	</ContentPage.Content>
 </ContentPage>
