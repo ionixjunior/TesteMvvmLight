@@ -17,12 +17,12 @@ namespace Core.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            await ViewModel.OnAppearing();
+            await ViewModel.OnAppearingAsync();
         }
 
         protected override async void OnDisappearing()
         {
-            await ViewModel.OnDisappearing();
+            await ViewModel.OnDisappearingAsync();
             base.OnDisappearing();
         }
     }
