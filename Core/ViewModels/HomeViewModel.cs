@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Core.ViewModels
 {
-	public class HomeViewModel : ViewModelBase
-	{
+	public class HomeViewModel : BaseViewModel
+    {
 		private INavigationService _navigation;
 		private IDialogService _dialog;
         private HttpResult<JsonPlaceModel> _result;
 
-        public HomeViewModel(INavigationService navigation, IDialogService dialog)
+        public HomeViewModel(INavigationService navigation, IDialogService dialog) : base("Home View")
 		{
 			_navigation = navigation;
 			_dialog = dialog;
@@ -30,20 +30,6 @@ namespace Core.ViewModels
             }).Wait();
             IsBusy = false;
             LoadList = _result.Result;
-        }
-
-        private bool _isBusy;
-        public bool IsBusy
-        {
-            get
-            {
-                return _isBusy;
-            }
-            set
-            {
-                if (Set(() => IsBusy, ref _isBusy, value))
-                    RaisePropertyChanged();
-            }
         }
 
         IList<JsonPlaceModel> _listItens;
