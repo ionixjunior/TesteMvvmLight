@@ -1,6 +1,7 @@
 ﻿using Core.Helpers;
 using Core.Models;
 using Core.Services;
+using Core.Services.Interfaces;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
@@ -14,13 +15,13 @@ namespace Core.ViewModels
     public class HomeViewModel : BaseViewModel
     {
 		private INavigationService _navigation;
-		private IDialogService _dialog;
+		private IUserDialogService _dialog;
         private HttpResult<JsonPlaceModel> _result;
 
-        public HomeViewModel(INavigationService navigation, IDialogService dialog) : base("Home View")
+        public HomeViewModel(INavigationService navigation, IUserDialogService dialog) : base("Home View")
 		{
 			_navigation = navigation;
-			_dialog = dialog;
+            _dialog = dialog;
         }
 
         public override async Task OnAppearingAsync()
@@ -61,15 +62,15 @@ namespace Core.ViewModels
             }
         }
 
-        private RelayCommand _showMessageCommand;
-        public RelayCommand ShowMessageCommand
-        {
-            get
-            {
-                return _showMessageCommand ?? (_showMessageCommand = new RelayCommand(
-                    async () => await _dialog.ShowMessage("Esta é a mensagem!", "Título")
-                ));
-            }
-        }
+        //private RelayCommand _showMessageCommand;
+        //public RelayCommand ShowMessageCommand
+        //{
+        //    get
+        //    {
+        //        return _showMessageCommand ?? (_showMessageCommand = new RelayCommand(
+        //            async () => await _dialog.AlertAsync("Título", "Esta é a mensagem!")
+        //        ));
+        //    }
+        //}
     }
 }

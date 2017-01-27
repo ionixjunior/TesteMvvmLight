@@ -1,4 +1,6 @@
-﻿using Core.Services;
+﻿using Acr.UserDialogs;
+using Core.Services;
+using Core.Services.Interfaces;
 using Core.ViewModels;
 using Core.Views;
 using GalaSoft.MvvmLight.Ioc;
@@ -22,14 +24,15 @@ namespace Core
 			var navigation = new NavigationService();
 			navigation.Configure(AppViews.Page2View, typeof(Page2View));
 			navigation.Configure(AppViews.Page3View, typeof(Page3View));
-			SimpleIoc.Default.Register<INavigationService>(() => navigation);
 
-			var dialog = new DialogService();
-			SimpleIoc.Default.Register<IDialogService>(() => dialog);
+            SimpleIoc.Default.Register<INavigationService>(() => navigation);
+            //SimpleIoc.Default.Register<IDialogService>(() =>  new DialogService());
+            //SimpleIoc.Default.Register<IUserDialogs>(() => UserDialogs.Instance);
+            SimpleIoc.Default.Register<IUserDialogService>(() => new UserDialogService(UserDialogs.Instance));
 
-			var navPage = new NavigationPage(new HomeView());
+            var navPage = new NavigationPage(new HomeView());
 			navigation.Initialize(navPage);
-			dialog.Initialize(navPage);
+			//dialog.Initialize(navPage);
 
 			MainPage = navPage;
 		}

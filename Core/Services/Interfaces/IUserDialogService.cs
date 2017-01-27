@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Acr.UserDialogs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,18 +24,19 @@ namespace Core.Services.Interfaces
         public string Title { get; set; }
         public string Message { get; set; }
 
-        public string OkButton { get; set; }
-        public string CancelButton { get; set; }
-
-        public bool HideOkButton { get; set; }
-        public bool HideCancelButton { get; set; }
+        public string OkText { get; set; }
+        public string CancelText { get; set; }
+        
+        public bool ShowCancelButton { get; set; }
     }
 
     public interface IUserDialogService
     {
-        void ShowToast(string message);
-        Task<bool> ConfirmAsync(string message, string title = "");
-        Task<AlertCallback> AlertAsync(AlertParameters parms);
-        Task<AlertCallback> AlertAsync(string title, string msg);
+        void ShowToast(string message, int secondsduration = 5, string description = null);
+        Task<AlertCallback> ConfirmAsync(string message, string title = "", string okText = "Ok", string cancelText = "Cancel");
+        Task<AlertCallback> AlertAsync(AlertParameters param);
+        Task<AlertCallback> AlertAsync(string title, string message, string okText = "Ok");
+        void ShowLoading(string title, MaskType mask = MaskType.None);
+        void HideLoading();
     }
 }

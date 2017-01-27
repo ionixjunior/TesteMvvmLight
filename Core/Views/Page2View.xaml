@@ -10,6 +10,20 @@
 			<Label
 				Text="Página 2"
 			></Label>
-		</StackLayout>
+            <Button
+                Text="Alert"
+                Command="{Binding AlertCommand}"
+            ></Button>
+            <Button
+                Text="Toast"
+                Command="{Binding ToastCommand}"
+            ></Button>
+            <Button
+                Text="ConfirmAsync"
+            ></Button>
+            <Button
+                Text="ShowLoading"
+            ></Button>
+        </StackLayout>
 	</ContentPage.Content>
 </ContentPage>
