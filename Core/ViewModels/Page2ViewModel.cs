@@ -2,6 +2,8 @@
 using Core.Services.Interfaces;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Core.ViewModels
@@ -46,10 +48,50 @@ namespace Core.ViewModels
         {
             get
             {
-                return _toastCommand ?? (_toastCommand = new RelayCommand(
-                    () =>
+                
+
+                    return _toastCommand ?? (_toastCommand = new RelayCommand(
+                        () =>
+                        {
+                                _userDialog.ShowToast("asdfasdf");
+                        }
+                    ));
+            }
+        }
+
+        private RelayCommand _showConfirmCommand;
+        public RelayCommand ShowConfirmCommand
+        {
+            get
+            {
+                return _showConfirmCommand ?? (_showConfirmCommand = new RelayCommand(
+                    async () =>
                     {
-                        _userDialog.ShowToast("asdfasdf");
+                        var resp = await _userDialog.AlertAsync(new AlertParameters
+                        {
+                            Title = "foo",
+                            OkText = "ok",
+                            Message = "bar bar bar XPTO",
+                            CancelText = "cancel",
+                            ShowCancelButton = true
+                        });
+                        System.Diagnostics.Debug.WriteLine(resp.AlertClickedAction.ToString());
+                    }
+                ));
+            }
+        }
+
+        private RelayCommand _showLoadingCommand;
+        public RelayCommand ShowLoadingCommand
+        {
+            get
+            {
+                return _showLoadingCommand ?? (_showLoadingCommand = new RelayCommand(
+                    async () =>
+                    {
+                        _userDialog.ShowLoading("Loading spinner");
+                        await Task.Delay(3000);
+                        _userDialog.HideLoading();
                     }
                 ));
             }

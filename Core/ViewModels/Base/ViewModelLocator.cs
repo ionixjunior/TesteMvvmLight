@@ -11,7 +11,8 @@ namespace Core.ViewModels
 			SimpleIoc.Default.Register<MainViewModel>();
 			SimpleIoc.Default.Register<HomeViewModel>();
 			SimpleIoc.Default.Register<Page2ViewModel>();
-		}
+            SimpleIoc.Default.Register<Page3ViewModel>();
+        }
 
 		public MainViewModel Main
 		{
@@ -27,5 +28,10 @@ namespace Core.ViewModels
 		{
 			get { return ServiceLocator.Current.GetInstance<Page2ViewModel>(); }
 		}
-	}
+
+        public Page3ViewModel Page3
+        {
+            get { return ServiceLocator.Current.GetInstance<Page3ViewModel>(); }
+        }
+    }
 }

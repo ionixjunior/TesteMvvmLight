@@ -3,13 +3,10 @@
 	xmlns="http://xamarin.com/schemas/2014/forms" 
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
 	x:Class="Core.Views.Page2View"
-	Title="Página 2"
+	Title="{Binding Title}"
 >
 	<ContentPage.Content>
-		<StackLayout>
-			<Label
-				Text="Página 2"
-			></Label>
+        <StackLayout>
             <Button
                 Text="Alert"
                 Command="{Binding AlertCommand}"
@@ -20,9 +17,11 @@
             ></Button>
             <Button
                 Text="ConfirmAsync"
+                Command="{Binding ShowConfirmCommand}"
             ></Button>
             <Button
                 Text="ShowLoading"
+                Command="{Binding ShowLoadingCommand}"
             ></Button>
         </StackLayout>
 	</ContentPage.Content>

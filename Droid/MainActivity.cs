@@ -8,6 +8,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Acr.UserDialogs;
+using Xamarin.Forms;
 
 namespace Core.Droid
 {
@@ -22,7 +23,8 @@ namespace Core.Droid
 			base.OnCreate(bundle);
 
 			global::Xamarin.Forms.Forms.Init(this, bundle);
-            UserDialogs.Init(this);
+            //UserDialogs.Init(this);
+            UserDialogs.Init(() => (Activity)Forms.Context);
             LoadApplication(new App());
         }
 	}

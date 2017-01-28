@@ -32,11 +32,11 @@ namespace Core.Services.Interfaces
 
     public interface IUserDialogService
     {
-        void ShowToast(string message, int secondsduration = 5, string description = null);
+        void ShowToast(string message, int secondsduration = 5);
         Task<AlertCallback> ConfirmAsync(string message, string title = "", string okText = "Ok", string cancelText = "Cancel");
         Task<AlertCallback> AlertAsync(AlertParameters param);
         Task<AlertCallback> AlertAsync(string title, string message, string okText = "Ok");
-        void ShowLoading(string title, MaskType mask = MaskType.None);
+        void ShowLoading(string title, MaskType mask = MaskType.Black);
         void HideLoading();
     }
 }

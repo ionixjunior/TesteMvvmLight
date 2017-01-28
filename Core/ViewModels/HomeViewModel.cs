@@ -1,8 +1,5 @@
-﻿using Core.Helpers;
-using Core.Models;
-using Core.Services;
+﻿using Core.Models;
 using Core.Services.Interfaces;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using PropertyChanged;
@@ -17,20 +14,22 @@ namespace Core.ViewModels
 		private INavigationService _navigation;
 		private IUserDialogService _dialog;
         private HttpResult<JsonPlaceModel> _result;
+        private IHttpService _httpService;
 
-        public HomeViewModel(INavigationService navigation, IUserDialogService dialog) : base("Home View")
+        public HomeViewModel(INavigationService navigation, IUserDialogService dialog, IHttpService httpService) : base("Home View")
 		{
 			_navigation = navigation;
             _dialog = dialog;
+            _httpService = httpService;
         }
 
         public override async Task OnAppearingAsync()
         {
             _result = new HttpResult<JsonPlaceModel>(System.Net.HttpStatusCode.NoContent);
             IsBusy = true;
-            var httpService = new HttpService();
-            httpService.URI = "https://jsonplaceholder.typicode.com";
-            _result = await httpService.Get<JsonPlaceModel>("/posts", new HttpHeader("Accept", "application/json"));
+            
+            _httpService.URI = "https://jsonplaceholder.typicode.com";
+            _result = await _httpService.GetAsync<JsonPlaceModel>("/posts", new HttpHeader("Accept", "application/json"));
             IsBusy = false;
             LoadList = _result.Result;
         }

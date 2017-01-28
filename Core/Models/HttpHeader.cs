@@ -1,4 +1,4 @@
-﻿namespace Core.Helpers
+﻿namespace Core.Models
 {
     public class HttpHeader
     {

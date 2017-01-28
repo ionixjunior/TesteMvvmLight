@@ -29,6 +29,7 @@ namespace Core
             //SimpleIoc.Default.Register<IDialogService>(() =>  new DialogService());
             //SimpleIoc.Default.Register<IUserDialogs>(() => UserDialogs.Instance);
             SimpleIoc.Default.Register<IUserDialogService>(() => new UserDialogService(UserDialogs.Instance));
+            SimpleIoc.Default.Register<IHttpService>(() => new HttpService());
 
             var navPage = new NavigationPage(new HomeView());
 			navigation.Initialize(navPage);

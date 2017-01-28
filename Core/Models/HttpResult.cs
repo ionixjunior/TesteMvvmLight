@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 
-namespace Core.Helpers
+namespace Core.Models
 {
     public class HttpResult<T>
     {

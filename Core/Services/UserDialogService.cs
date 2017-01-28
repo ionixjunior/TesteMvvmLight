@@ -1,9 +1,6 @@
 ﻿using Acr.UserDialogs;
 using Core.Services.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Core.Services
@@ -27,7 +24,7 @@ namespace Core.Services
                     Message = param.Message,
                     OkText = param.OkText,
                     CancelText = param.CancelText,
-                    OnConfirm = (s) =>
+                    OnAction = (s) =>
                     {
                         tcsAlertCallback.SetResult(new AlertCallback
                         {
@@ -41,7 +38,7 @@ namespace Core.Services
                     Title = param.Title,
                     Message = param.Message,
                     OkText = param.OkText,
-                    OnOk = () =>
+                    OnAction = () =>
                     tcsAlertCallback.SetResult(new AlertCallback
                     {
                         AlertClickedAction = AlertClickedAction.Ok
@@ -60,7 +57,7 @@ namespace Core.Services
                 Title = title,
                 Message = message,
                 OkText = okText,
-                OnOk = () =>
+                OnAction = () =>
                 tcsAlertCallback.SetResult(new AlertCallback
                 {
                     AlertClickedAction = AlertClickedAction.Ok
@@ -81,7 +78,7 @@ namespace Core.Services
                 Message = message,
                 OkText = okText,
                 CancelText = cancelText,
-                OnConfirm = s =>
+                OnAction = s =>
                 tcsAlertCallback.SetResult(new AlertCallback
                 {
                     AlertClickedAction = s ? AlertClickedAction.Ok : AlertClickedAction.Cancel
@@ -96,15 +93,23 @@ namespace Core.Services
             _acrDialog.HideLoading();
         }
 
-        public void ShowLoading(string title, MaskType mask = MaskType.None)
+        public void ShowLoading(string title, MaskType mask = MaskType.Black)
         {
             _acrDialog.ShowLoading(title, mask);
         }
 
-        public void ShowToast(string title, int secondsduration = 5, string description = null)
+        public void ShowToast(string title, int secondsDuration = 5)
         {
-            _acrDialog.Toast(new ToastConfig(new ToastEvent(), title, description).
-                SetDuration(TimeSpan.FromSeconds(secondsduration)));
+            _acrDialog
+                .Toast(new ToastConfig(title)
+                    //.SetMessageTextColor(System.Drawing.Color.FromHex(this.MessageTextColor))
+                    .SetDuration(TimeSpan.FromSeconds(secondsDuration))
+                    //.SetAction(x => x
+                    //    .SetText(this.ActionText)
+                    //    //.SetTextColor(new System.Drawing.Color.FromHex(this.ActionTextColor))
+                    //    .SetAction(() => dialogs.Alert("You clicked the primary button"))
+                    //)
+                );
         }
     }
 }
